@@ -1,0 +1,7 @@
+select CXCRCD "Currency From",
+       CXCRDC "Currency To",
+       convert_julien(CXEFT) "Effective Date",
+       CXCRR "Exchange Rate"
+from proddta.F0015
+where CXCRCD in <Currencies>
+and CXEFT = <date>

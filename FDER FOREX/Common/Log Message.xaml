@@ -1,0 +1,161 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Log_Message" this:Log_Message.In_LogLevel="1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:si="clr-namespace:System.IO;assembly=mscorlib"
+ xmlns:this="clr-namespace:"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="In_Message" Type="InArgument(x:String)" />
+    <x:Property Name="In_LogLevel" Type="InArgument(x:Int32)" />
+    <x:Property Name="In_LogWriter" Type="InArgument(x:Object)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>Log_Message_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="si:TextWriter" Name="LogWriter" />
+    </Sequence.Variables>
+    <If Condition="[In_LogWriter isnot nothing]" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+            <Assign.To>
+              <OutArgument x:TypeArguments="si:TextWriter">[LogWriter]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="si:TextWriter">[CType(In_LogWriter, TextWriter)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Switch x:TypeArguments="x:Int32" DisplayName="Switch" Expression="[In_LogLevel]" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+            <Switch.Default>
+              <WriteLine DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[DateTime.Now.ToString(&quot;[yyyyMMdd HH:mm:ss\.fff]&quot;) &amp; &quot; Info: &quot; &amp; In_Message]" TextWriter="[LogWriter]" />
+            </Switch.Default>
+            <WriteLine x:Key="0" DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[DateTime.Now.ToString(&quot;[yyyyMMdd HH:mm:ss\.fff]&quot;) &amp; &quot; Trace: &quot; &amp; In_Message]" TextWriter="[LogWriter]" />
+            <WriteLine x:Key="2" DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[DateTime.Now.ToString(&quot;[yyyyMMdd HH:mm:ss\.fff]&quot;) &amp; &quot; Warn: &quot; &amp; In_Message]" TextWriter="[LogWriter]" />
+            <WriteLine x:Key="3" DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_6" Text="[DateTime.Now.ToString(&quot;[yyyyMMdd HH:mm:ss\.fff]&quot;) &amp; &quot; Error: &quot; &amp; In_Message]" TextWriter="[LogWriter]" />
+            <WriteLine x:Key="4" DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_7" Text="[DateTime.Now.ToString(&quot;[yyyyMMdd HH:mm:ss\.fff]&quot;) &amp; &quot; Fatal: &quot; &amp; In_Message]" TextWriter="[LogWriter]" />
+          </Switch>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Switch x:TypeArguments="x:Int32" DisplayName="Switch" Expression="[In_LogLevel]" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+          <Switch.Default>
+            <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[In_Message]" />
+          </Switch.Default>
+          <ui:LogMessage x:Key="0" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Trace" Message="[In_Message]" />
+          <ui:LogMessage x:Key="2" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Warn" Message="[In_Message]" />
+          <ui:LogMessage x:Key="3" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Error" Message="[In_Message]" />
+          <ui:LogMessage x:Key="4" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Fatal" Message="[In_Message]" />
+        </Switch>
+      </If.Else>
+    </If>
+    <sads:DebugSymbol.Symbol>d09DOlxVc2Vyc1xib2JvXERvY3VtZW50c1xBY3RpbWFpXFRNQ1xzcmNcVG1jQ3ZsVXBsb2FkaW5nXENvbW1vblxMb2cgTWVzc2FnZS54YW1sJQFeAWABAkoDcQ4CAQFOBW8KAgECThNOMQIBA1AJYhQCARdlCW0SAgEFUQtYFAIBL1kLYRQCARhlS2VaAgEGaQtpegIBFGoLankCARFrC2t6AgEObAtsegIBC2cNZ4sBAgEIVjtWXAIBMlM8U0cCATBZTVlcAgEZXQ1d9QECASteDV70AQIBJ18NX/UBAgEjYA1g9QECAR9bD1vsAQIBG2lpaXcCARVqaGp2AgESa2lrdwIBD2xpbHcCAQxnemeIAQIBCV1uXdkBAgEuXeUBXfIBAgEsXm5e2AECASpe5AFe8QECAShfbl/ZAQIBJl/lAV/yAQIBJGBuYNkBAgEiYOUBYPIBAgEgW2Zb0AECAR5b3AFb6QECARw=</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="477.6,60" />
+      <sap2010:ViewStateData Id="WriteLine_3" sap:VirtualizedContainerService.HintSize="210.4,62.4" />
+      <sap2010:ViewStateData Id="WriteLine_4" sap:VirtualizedContainerService.HintSize="210.4,62.4" />
+      <sap2010:ViewStateData Id="WriteLine_5" sap:VirtualizedContainerService.HintSize="210.4,62.4" />
+      <sap2010:ViewStateData Id="WriteLine_6" sap:VirtualizedContainerService.HintSize="210.4,62.4" />
+      <sap2010:ViewStateData Id="WriteLine_7" sap:VirtualizedContainerService.HintSize="210.4,62.4" />
+      <sap2010:ViewStateData Id="Switch`1_2" sap:VirtualizedContainerService.HintSize="477.6,319.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="500,544">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_3" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
+      <sap2010:ViewStateData Id="LogMessage_4" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
+      <sap2010:ViewStateData Id="LogMessage_5" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
+      <sap2010:ViewStateData Id="LogMessage_6" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
+      <sap2010:ViewStateData Id="LogMessage_7" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
+      <sap2010:ViewStateData Id="Switch`1_1" sap:VirtualizedContainerService.HintSize="477.6,349.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="1002.4,693.6" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="1024.8,818.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Log_Message_1" sap:VirtualizedContainerService.HintSize="1064.8,898.4" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

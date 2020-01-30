@@ -1,0 +1,7 @@
+select CXCRCD "Currency From",
+       CXCRDC "Currency To",
+       convert_julien(CXEFT) "Effective Date",
+       CXCRR "Exchange Rate"
+from proddta.F0015
+where CXCRCD in ('USD', 'JPY', 'GBP', 'HKD', 'CHF', 'CAD', 'SGD', 'AUD', 'EUR', 'CNY')
+and CXEFT = 119282
